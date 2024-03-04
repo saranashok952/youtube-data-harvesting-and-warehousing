@@ -266,10 +266,10 @@ def show_comment_table():
 
 
 # streamlit code
-with st.sidebar:
-    st.title(":red[YOUTUBE DATA HARVESTING AND WAREHOUSING]")
-    st.header("Description")
-    st.caption("The goal is to create a Streamlit application that will let users examine data from different YouTube channels. To view features including channel information, video details, and user interaction analytics, users must enter their YouTube channel ID. The software ought to enable users to collect data from up to ten distinct channels and store it in a MongoDB database. It should also have the ability to move specific channel data from MongoDB to a SQL database for further examination. With sophisticated features like table joins for an extensive view of channel information, the application should enable users to search and get data from the SQL database.")
+
+st.title(":blue[YOUTUBE DATA HARVESTING AND WAREHOUSING]")
+st.header("Description")
+st.caption("The goal is to create a Streamlit application that will let users examine data from different YouTube channels. To view features including channel information, video details, and user interaction analytics, users must enter their YouTube channel ID. The software ought to enable users to collect data from up to ten distinct channels and store it in a MongoDB database. It should also have the ability to move specific channel data from MongoDB to a SQL database for further examination. With sophisticated features like table joins for an extensive view of channel information, the application should enable users to search and get data from the SQL database.")
     
 channel_id=st.text_input("Channel ID")
 
@@ -290,13 +290,13 @@ if st.button("Convert to SQL"):
     Table=convert_to_table()
     st.success(Table)
     
-show_table=st.radio("CHOOSE ANY TABLE TO VIEW",("CHANNELS","VIDEOS","COMMENTS"))
-if show_table=="CHANNELS":
+if st.button("Channel Table"):
     show_channel_table()
-elif show_table=="VIDEOS":
+if st.button("Video Table"):
     show_video_table()
-elif show_table=="COMMENTS":
+if st.button("Comment Table"):
     show_comment_table()
+
 
 #sql queries
 sqlite_connection = sqlite3.connect('sample.db')
@@ -409,5 +409,3 @@ elif question=="10. Which videos have the highest number of comments, and what a
     df=pd.read_sql_query(sql_query,sqlite_connection)
     #display(df)
     st.write(df)
-
-sqlite_connection.close()
